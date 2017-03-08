@@ -1,0 +1,15 @@
+---
+# file: roles/mq/defaults/main.yaml
+# Usage: AIX parameters tuning variables
+# Author: Guan Ji Chen at vaneCloud.com
+# v1.0
+
+tmp_dir: /tmp/vanecloud
+disk: hdisk1
+vg_name: datavg
+file_system:
+  - {'lv': 'lv_mq', 'mpoint': '/mq', 'size':'5G' }
+repo: http://96.0.46.133/mq/8.0/aix
+inst_pkg: WS_MQ_FOR_AIX_V8.0_EIMAGE.tar.Z
+mq_inst_dir: /usr/mqm
+upd_pkg: 8.0.0-WS-MQ-AixPPC64-FP0004.tar.Z

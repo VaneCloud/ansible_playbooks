@@ -1,0 +1,9 @@
+tmp_dir: /tmp/weblogic
+urls: http://192.168.20.132/weblogic
+java_pkg: jdk-7u79-linux-x64.tar.gz
+wls_pkg: wls1036_generic.jar
+wls_install: /oracle/middleware
+group: oinstall
+user: oracle
+password: weblogic
+java_home: /usr/local/jdk1.7.0_79

@@ -1,0 +1,53 @@
+---
+# file: roles/mq/tasks/create_fs.yaml
+# Usage: AIX parameters tuning variables
+# Author: Guan Ji Chen at vaneCloud.com
+# v1.0
+
+- name: Scan new hdisk - init
+  shell: "cfgmgr && lsdev -l {{ disk }} | awk '{print $2}'"
+  register: disk_avail
+  tags:
+    - create_fs
+
+- name: Scan new hdisk
+  shell: "cfgmgr && lsdev -l {{ disk }} | awk '{print $2}'"
+  register: disk_avail
+  when: "disk_avail.stdout != 'Available'"
+  retries: 10
+  delay: 10
+  tags:
+    - create_fs
+
+- name: Create VG
+  shell: "mkvg -y {{ vg_name }} {{ disk }}"
+  tags:
+    - create_fs
+
+- name: Create LV
+  shell: "mklv -y {{ item.lv }} -t jfs2 {{ vg_name }} 1"
+  with_items:
+    - "{{ file_system }}"
+  tags:
+    - create_fs
+
+- name: Create filesystem
+  shell: "crfs -v jfs2 -d {{ item.lv }} -m {{ item.mpoint }} -A yes"
+  with_items:
+    - "{{ file_system }}"
+  tags:
+    - create_fs
+
+- name: Mount filesystem
+  shell: "mount {{ item.mpoint }}"
+  with_items:
+    - "{{ file_system }}" 
+  tags:
+    - create_fs
+
+- name: Resize filesystem
+  shell: "chfs -a size={{ item.size }} {{ item.mpoint }}"
+  with_items:
+    - "{{ file_system }}" 
+  tags:
+    - create_fs

@@ -1,0 +1,18 @@
+---
+# file: roles/db2_install/tasks/create_instance.yaml
+# Usage: prepare db2 installation environment
+# Author: Guan Ji / chenguanji at vanecloud.com
+# v1.0
+
+- name: Create instance
+  shell: "{{ install_dir }}/instance/db2icrt -a server -u {{ ins_name }}f {{ ins_name }}"
+
+- name: Start instance
+  become: yes
+  become_user: "{{ ins_name }}"
+  shell: db2start
+
+- name: Create db
+  become: yes
+  become_user: "{{ ins_name }}"
+  shell: "db2 create database {{ ins_name }}"

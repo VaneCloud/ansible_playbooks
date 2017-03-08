@@ -1,0 +1,6 @@
+---
+# install IBM WebSphere Application Server
+- hosts: all
+  roles:
+    - db2install
+

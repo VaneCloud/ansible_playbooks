@@ -1,0 +1,65 @@
+//************ File starts here ***********
+read template from "{{ wls_install }}/wlserver_10.3/common/templates/domains/wls.jar";
+
+set JavaHome "{{ java_home }}"; //Set JDK to use
+
+set ServerStartMode "dev"; //production mode or development mode
+
+//To create a Admin server find it from wls template
+find Server "AdminServer" as AdminServer;
+set AdminServer.ListenAddress "";
+set AdminServer.ListenPort "7001";
+set AdminServer.SSL.Enabled "true";
+set AdminServer.SSL.ListenPort "7002";
+
+//We can directly create a new managed server.
+//create Server "ms1" as MS1;
+//set MS1.ListenAddress "";
+//set MS1.ListenPort "8003";
+//set MS1.SSL.Enabled "true";
+//set MS1.SSL.ListenPort "7004″;
+
+//Craeting Cluster
+//create Cluster "MyCluster" as MyCl;
+
+//Putting managed servers into the cluster
+//assign Server "MS1″ to Cluster "MyCluster";
+//assign Server "MS2″ to Cluster "MyCluster";
+
+//Create Machine
+//create Machine "admin.com" as Machinename;
+
+//Create JDBC datasource and targeting it to cluster
+//create JDBCConnectionPool "demoPool" as mypool;
+//set mypool.DriverName "com.pointbase.jdbc.jdbcUniversalDriver";
+//set mypool.URL "jdbc:pointbase:server://localhost:9092/demo";
+//set mypool.Password "PBPUBLIC";
+//set mypool.Properties "user=PBPUBLIC";
+//assign JDBCConnectionPool "*" to target "MyCluster";
+
+//Create File Store
+//create JMSFileStore "FileStore" as filestore;
+//set filestore.Directory "d:\FStore";
+//create JMS server
+//create JMSServer "JMSServer" as jmsserver;
+//set jmsserver.PersistentStore "FileStore"; //Add persistence store to the JMS server
+//assign JMSServer "*" to target "MS1″;
+
+//create JMS queue, default subdeployment will be created and targeted. Not sure
+//create JMSQueue "Queue" as queue;
+//set queue.JNDIName "jms/queue"; //JNDI name for Queue
+//set queue.JMSServer "JMSServer"; //Target queue to JMS server
+
+//use templates default weblogic user
+find User "weblogic" as u1;
+set u1.password "{{ password }}";
+
+//create a new user
+create User "admin" as u2;
+set u2.password "{{ password }}";
+
+write domain to "{{ wls_install }}/wlserver_10.3/user_projects/domains/base_domain"; // The domain name will be "base-domain"
+
+close template;
+
+//********File end here ********

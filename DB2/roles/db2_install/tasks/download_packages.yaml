@@ -1,0 +1,24 @@
+---
+# file: roles/db2_install/tasks/download_packages.yaml
+# Usage: download db2 installation packages
+# Author: Guan Ji / chenguanji at vanecloud.com
+# v1.0
+
+- name: Prepare temp dir
+  file:
+    path: "{{ temp_path }}"
+    state: directory
+
+- name: Download installation packages
+  become: false
+  synchronize:
+    src: .
+    dest: "{{ temp_path }}"
+
+# - name: Extract packages
+  # shell: "cd {{ temp_path }}; gunzip {{ package }} | tar xf -"
+
+#- name: Clean up zipped packages
+#  file: 
+#    path: "{{ temp_path }}/{{ package }}"
+#    state: absent

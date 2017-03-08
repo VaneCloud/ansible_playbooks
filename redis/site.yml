@@ -1,0 +1,6 @@
+- hosts: all
+  roles:
+    - { role: geerlingguy.redis }
+  vars:
+    - redis_port: "{{ listen_port }}"
+    - redis_bind_interface: "{{ listen_addr }}" 

@@ -1,0 +1,10 @@
+- name: Create temporary directory
+  file:
+    path: "{{ temp_dir }}"
+    state: directory
+
+- name: Copy WAS installation files
+  become: false
+  synchronize:
+    src: .
+    dest: "{{ temp_dir }}"

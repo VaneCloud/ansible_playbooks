@@ -1,0 +1,7 @@
+- hosts: all
+#  vars_files:
+#    - vars/main.yml
+  roles:
+    - { role: geerlingguy.gitlab }
+  vars:
+    gitlab_external_url: "https://192.168.20.141"

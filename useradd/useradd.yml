@@ -1,0 +1,27 @@
+---
+#The playbook creates a new user on ubantu,centos6,centos7 os platfrom.
+- hosts: all 
+  vars:
+    user_name:
+    user_pass: "{{ user_name }}"
+    home_dir: "/home/{{ user_name }}"
+  tasks:
+   - name: Create group
+     group: 
+       name: "{{ user_name }}"
+       state: present
+ 
+   - name: Create user account
+     user: 
+       name: "{{ user_name }}"
+       group: "{{ user_name }}" 
+       home: "{{ home_dir }}"
+       state: present 
+
+   - name: Change user password
+     shell: echo {{ user_name }}:{{ user_pass }} |chpasswd
+
+
+   - name: Aix user opertion
+     shell: pwdadm -c "{{ user_name }}"
+     when: ansible_os_family == 'AIX'

@@ -1,0 +1,11 @@
+---
+# file: roles/db2_install/tasks/main.yaml
+# Usage: AIX parameters tuning processes
+# Author: Guan Ji / chenguanji at vanecloud.com
+# v1.0
+
+- include: system_prerequisites.yaml
+- include: download_packages.yaml
+- include: prepare_db2.yaml
+- include: install_db2.yaml
+- include: create_instance.yaml

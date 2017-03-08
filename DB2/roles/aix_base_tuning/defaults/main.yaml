@@ -1,0 +1,46 @@
+---
+# file: roles/aix_base_tuning/defaults/main.yaml
+# Usage: AIX parameters tuning variables
+# Author: Guan Ji / chenguanji at vanecloud.com
+# v1.0
+
+fs_size:
+  - {name: /,       size: 2G }
+  - {name: /usr,    size: 8G }
+  - {name: /var,    size: 2G }
+  - {name: /tmp,    size: 2G }
+  - {name: /home,   size: 2G }
+  - {name: /opt,    size: 8G }
+
+no_params:
+  - {name: sb_max,          param: 8388608 }
+  - {name: ipforwarding,    param: 0 }
+  - {name: tcp_sendspace,   param: 2097152 }
+  - {name: tcp_recvspace,   param: 4194304 }
+  - {name: tcp_mssdflt,     param: 1448 }
+  - {name: udp_sendspace,   param: 2097152 }
+  - {name: udp_recvspace,   param: 4194304 }
+  - {name: tcp_nodelayack,  param: 0 }
+  - {name: fasttimo,        param: 100 }
+  - {name: tcp_keepidle,    param: 150 }
+  - {name: tcp_keepinit,    param: 30 }
+
+no_params_restart:
+  - {name: ipqmaxlen,       param: 512 }
+
+vmo_params:
+  - {name: maxperm%,        param: 20 }
+  - {name: minperm%,        param: 5 }
+  - {name: maxclient%,      param: 10 }
+  - {name: strict_maxperm,  param: 1 }
+  - {name: strict_maxclient,param: 1 }
+
+ioo_params:
+  - {name: maxpgahead   ,param: 128 }
+
+sys0_params:
+  - {name: maxuproc     ,param: 8192 }
+  - {name: ncargs       ,param: 320 }
+
+ntp_server: 96.0.40.80
+

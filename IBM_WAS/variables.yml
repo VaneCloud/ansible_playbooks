@@ -1,0 +1,5 @@
+temp_dir: /tmp/vanesible/was
+shared_dir: /opt/IBM/IMShared
+install_dir: /opt/IBM/WebSphere/AppServer
+profile_name: default
+application: daytrader3-ee6.ear

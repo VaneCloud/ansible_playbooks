@@ -1,0 +1,7 @@
+- hosts: all
+  roles:
+    - role: geerlingguy.mysql
+      become: yes
+  vars:
+    - mysql_port: "{{ mysql_port }}"
+    - mysql_root_password: "{{ mysql_root_password }}"

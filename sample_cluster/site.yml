@@ -1,0 +1,12 @@
+---
+- hosts: host1
+  tasks:
+    - name: debug1
+      debug:
+        msg: debug host 1
+
+- hosts: host2
+  tasks:
+    - name: debug2
+      debug:
+        msg: debug host 2

@@ -1,0 +1,26 @@
+---
+# file: roles/mq/tasks/get_package.yaml
+# Usage: AIX parameters tuning variables
+# Author: Guan Ji Chen at vaneCloud.com
+# v1.0
+
+- name: Download installation package
+  shell: "cd {{ tmp_dir }}; curl -O {{ repo }}/{{ inst_pkg }}"
+  tags:
+    - get_pkg
+
+- name: Extract installation package
+  shell: "cd {{ tmp_dir }}; uncompress {{ inst_pkg }}"
+  tags:
+    - get_pkg
+
+- name: List installation package
+  shell: "cd {{ tmp_dir }};ls"
+  register: inst_pkg_tar
+  tags:
+    - get_pkg
+
+- name: Extract installation package cont.
+  shell: "cd {{ tmp_dir }}; tar -xf {{ inst_pkg_tar.stdout }}"
+  tags:
+    - get_pkg

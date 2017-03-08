@@ -1,0 +1,15 @@
+---
+- name: Install YUM Priority Plugins
+  yum: "name=yum-priorities  state=installed"
+
+- name: Add VaneCloud Internal USTC Repo
+  template:
+    src: centos-ustc.repo
+    dest: /etc/yum.repos.d/centos-ustc.repo
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Ensure Java is installed.
+  package: "name={{ item }} state=installed"
+  with_items: "{{ java_packages }}"

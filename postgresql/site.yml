@@ -1,0 +1,6 @@
+- hosts: all
+  roles:
+    -  galaxyprojectdotorg.postgresql 
+  vars:
+    - listen_addresses: "{{ listen_addr }}"
+    - max_connections: "{{ max_connect }}"

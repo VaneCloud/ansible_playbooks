@@ -1,0 +1,56 @@
+---
+# file: roles/db2_install/tasks/prepare_db2.yaml
+# Usage: prepare db2 installation environment
+# Author: Guan Ji / chenguanji at vanecloud.com
+# v1.0
+
+- name: Install prerequisite packages
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - pam.i686
+    - libstdc++.i686
+    - libaio
+
+- name: Check db2 install requirement
+  shell: "{{ temp_path }}/files/db2prereqcheck -i"
+  register: check_result
+
+- name: Check check result
+  fail: "{{ check_result.stderr }}"
+  when: check_result.rc != 0
+
+- name: Create db2fence group
+  group:
+    name: "{{ ins_name }}fg"
+    state: present
+
+- name: Create db2fence user
+  user:
+    name: "{{ ins_name }}f"
+    groups: "{{ ins_name }}fg"
+    state: present
+
+- name: Create DASadm group
+  group:
+    name: dasadm1
+    state: present
+
+- name: Create DASadm user
+  user:
+    name: dasusr1
+    groups: dasadm1
+    state: present
+
+- name: Create db2 instance group
+  group:
+    name: "{{ ins_name }}ig"
+    state: present
+
+- name: Create db2 instance user
+  user:
+    name: "{{ ins_name }}"
+    groups: "{{ ins_name }}ig"
+    state: present
+

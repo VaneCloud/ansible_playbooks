@@ -1,0 +1,8 @@
+- name: Install WAS v8.5.5
+  hosts: all
+  become: yes
+  become_method: sudo
+  gather_facts: false
+  roles:
+    - role: "IM"
+    - role: "WAS" 

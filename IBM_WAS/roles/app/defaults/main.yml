@@ -1,0 +1,4 @@
+---
+temp_dir: /tmp/vanesible/was
+install_dir: /opt/IBM/WebSphere/AppServer
+profile_name: default

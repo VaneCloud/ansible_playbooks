@@ -1,0 +1,8 @@
+- name: Generate response file for silent install
+  template:
+    src: responsefile.xml.j2
+    dest: "{{ temp_dir }}/files/responsefile.xml"
+
+
+- name: Install WAS application
+  shell: '/opt/IBM/InstallationManager/eclipse/tools/imcl -acceptLicense -input {{ temp_dir }}/files/responsefile.xml -log /tmp/wassilent.xml'

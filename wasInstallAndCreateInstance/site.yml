@@ -1,0 +1,7 @@
+---
+# install IBM WebSphere Application Server
+- hosts: all
+  roles:
+    - wasinstall
+    - wascreateinstance
+

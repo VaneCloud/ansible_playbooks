@@ -1,0 +1,40 @@
+---
+# file: roles/mq/tasks/get_upd_package.yaml
+# Usage: AIX parameters tuning variables
+# Author: Guan Ji Chen at vaneCloud.com
+# v1.0
+
+- name: Clean up temp dir
+  file:
+    dest: "{{ tmp_dir }}"
+    state: absent
+  tags:
+    - get_upd
+
+- name: Clean up temp dir cont.
+  file:
+    dest: "{{ tmp_dir }}"
+    state: directory
+  tags:
+    - get_upd
+
+- name: Download update package
+  shell: "cd {{ tmp_dir }}; curl -O {{ repo }}/{{ upd_pkg }}"
+  tags:
+    - get_upd
+
+- name: Extract update package
+  shell: "cd {{ tmp_dir }}; uncompress {{ upd_pkg }}"
+  tags:
+    - get_upd
+
+- name: List update package
+  shell: "cd {{ tmp_dir }};ls"
+  register: upd_pkg_tar
+  tags:
+    - get_upd
+
+- name: Extract update package cont.
+  shell: "cd {{ tmp_dir }}; tar -xf {{ upd_pkg_tar.stdout }}"
+  tags:
+    - get_upd

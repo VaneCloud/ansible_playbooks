@@ -1,0 +1,16 @@
+---
+- hosts: all
+  become: yes
+#  become_method: sudo
+#  become_user: root
+  vars:
+    oracle_path: /u01/app           # ORACLE_BASE will be /u01/app/oracle
+    oracle_db_name: db01 # ORACLE_SID will be my_special_db
+    oracle_db_home: orahome # ORACLE_HOME will be /u01/app/oracle/product/11.2.0/special_home
+    oracle_db_user: devuser
+    oracle_db_pass: AnAwesomeAndAmazingP4ssw0rd
+    oracle_db_syspass: AMor3AwesomeAndAmazingP4ssw0rd
+    oracle_installer_uri: http://192.168.20.132/oracle # Ansible will download http://my.host/linux.x64_11gR2_database_1of2.zip
+  roles:
+    # more roles here
+    - oracle

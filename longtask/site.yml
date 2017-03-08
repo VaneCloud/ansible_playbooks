@@ -1,0 +1,6 @@
+---
+- hosts: all
+  tasks:
+    - name: sleep for 1 hour
+      shell: sleep 60
+      with_sequence: count=60

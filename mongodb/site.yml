@@ -1,0 +1,5 @@
+- hosts: all
+  roles:
+  - Stouts.mongodb
+  vars:
+    mongodb_conf_port: "{{ listen_port }}"

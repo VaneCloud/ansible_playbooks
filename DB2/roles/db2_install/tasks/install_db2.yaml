@@ -1,0 +1,16 @@
+---
+# file: roles/db2_install/tasks/install_db2.yaml
+# Usage: prepare db2 installation environment
+# Author: Guan Ji / chenguanji at vanecloud.com
+# v1.0
+
+- name: Generate response file
+  template:
+    src: responsefile.rsp.j2
+    dest: "{{ temp_path }}/{{ response_file }}"
+
+- name: Install db2 software
+  shell: "{{ temp_path }}/files/db2setup -l /tmp/db2install.log -r {{ temp_path }}/{{ response_file }} -f sysreq"
+
+- name: Create das
+  shell: "{{ install_dir }}/instance/dascrt -u dasusr1"

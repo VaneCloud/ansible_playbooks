@@ -1,0 +1,5 @@
+- hosts: all
+  roles:
+    - Stouts.rabbitmq
+  vars:
+    rabbitmq_vhosts: [myhost]

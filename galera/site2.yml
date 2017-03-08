@@ -1,0 +1,6 @@
+- hosts: all
+  vars:
+    - galera_cluster_name: cluster_one
+    - galera_cluster_members: [192.168.20.141, 192.168.20.142]
+  roles:
+    - role: alexeymedvedchikov.galera

@@ -1,0 +1,13 @@
+---
+# file: roles/mq/tasks/main.yaml
+# Usage: AIX parameters tuning variables
+# Author: Guan Ji Chen at vaneCloud.com
+# v1.0
+
+- include: prepare.yaml
+- include: create_fs.yaml
+- include: get_package.yaml
+- include: install_mq.yaml
+- include: get_upd_package.yaml
+- include: install_upd.yaml
+- include: cleanup.yaml

@@ -1,0 +1,4 @@
+- name: Remove installation files
+  file:
+    path: "{{ temp_dir }}"
+    state: absent

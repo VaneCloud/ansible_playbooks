@@ -1,0 +1,10 @@
+- hosts: all
+  roles:
+    - { role: geerlingguy.haproxy }
+  vars:
+    haproxy_frontend_port: "{{ listen_port }}"
+    haproxy_backend_servers:
+      - name: app1
+        address: "{{ backend_host1 }}"
+      - name: app2
+        address: "{{ backend_host2 }}"

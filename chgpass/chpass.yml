@@ -1,0 +1,15 @@
+---
+#The playbook function is modify user password
+
+- hosts: all
+  vars:
+    user_name:
+    user_pass: "{{ user_name }}"
+
+  tasks:
+    - name: Change password
+      shell: echo {{ user_name }}:{{ user_pass }} |chpasswd 
+
+   - name: Aix user opertion
+     shell: pwdadm -c "{{ user_name }}"
+     when: ansible_os_family == 'AIX'

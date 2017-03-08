@@ -1,0 +1,28 @@
+- name: create template directory
+  file:
+    path: "{{ temp_dir }}"
+    state: directory
+
+- name: copy application file
+  copy:
+    src: daytrader3-ee6.ear
+    dest: "{{ temp_dir }}"
+
+- name: copy python scripts
+  copy:
+    src: install_all.py
+    dest: "{{ temp_dir }}"
+
+- name: copy resource_scripts
+  copy:
+    src: resource_scripts.py
+    dest: "{{ temp_dir }}"
+
+- name: install application
+  shell: "cd {{ temp_dir }}; {{ install_dir }}/profiles/{{ profile_name }}/bin/wsadmin.sh -f install_all.py"
+
+- name: restart application step 1
+  shell: "cd {{ temp_dir }}; {{ install_dir }}/profiles/{{ profile_name }}/bin/stopServer.sh server1"
+
+- name: restart application step 2
+  shell: "cd {{ temp_dir }}; {{ install_dir }}/profiles/{{ profile_name }}/bin/startServer.sh server1"

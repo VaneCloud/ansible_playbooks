@@ -1,0 +1,33 @@
+---
+# file: roles/aix_base_tuning/tasks/cloud_init.yaml
+# Usage: AIX parameters tuning processes
+# Author: Guan Ji / chenguanji at vanecloud.com
+# v1.0
+
+- name: Patch aix_util
+  copy:
+    src: aix_util.py
+    dest: /opt/freeware/lib/python2.7/site-packages/cloudinit/distros
+  tags:
+    - config_cloud_init
+
+- name: Patch cc_update_etc_hosts
+  copy:
+    src: cc_update_etc_hosts.py
+    dest: /opt/freeware/lib/python2.7/site-packages/cloudinit/config
+  tags:
+    - config_cloud_init
+
+- name: Modify /etc/hosts template file to support hostname resolv
+  copy:
+    src: hosts.aix.tmpl
+    dest: /opt/freeware/etc/cloud/templates
+  tags:
+    - config_cloud_init
+
+- name: Modify cloud init config file to support everything
+  copy:
+    src: cloud.cfg
+    dest: /opt/freeware/etc/cloud
+  tags:
+    - config_cloud_init

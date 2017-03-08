@@ -1,0 +1,3 @@
+- include: copy_was_files.yml
+- include: install_was.yml
+- include: remove_installation_files.yml

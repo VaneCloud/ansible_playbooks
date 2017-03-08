@@ -1,0 +1,25 @@
+[vanecloud_base]
+name=CentOS-$releasever - vanecloud_Base
+#mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=os
+baseurl=http://192.168.20.170/ustc/centos/$releasever/os/$basearch/
+enabled=1
+priority=1
+gpgcheck=0
+
+#released updates
+[vanecloud_updates]
+name=CentOS-$releasever - vanecloud_Updates
+# mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=updates
+baseurl=http://192.168.20.170/ustc/centos/$releasever/updates/$basearch/
+priority=1
+enabled=1
+gpgcheck=0
+
+#additional packages that may be useful
+[vanecloud_extras]
+name=CentOS-$releasever - vanecloud_Extras
+# mirrorlist=http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=extras
+baseurl=http://192.168.20.170/ustc/centos/$releasever/extras/$basearch/
+priority=1
+enabled=1
+gpgcheck=0

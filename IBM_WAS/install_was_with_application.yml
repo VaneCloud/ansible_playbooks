@@ -1,0 +1,3 @@
+- include: install_was.yml
+- include: create_profile.yml
+- include: install_app.yml

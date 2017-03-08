@@ -1,0 +1,17 @@
+---
+# file: roles/mq/tasks/cleanup.yaml
+# Usage: AIX parameters tuning variables
+# Author: Guan Ji Chen at vaneCloud.com
+# v1.0
+
+- name: Clean temporary directory
+  file:
+    dest: "{{ tmp_dir }}"
+    state: absent
+  tags:
+    - cleanup
+
+- name: Resize /tmp filesystem to normal
+  shell: "chfs -a size={{ tmp_fs_size.stdout }} /tmp"
+  tags:
+    - cleanup

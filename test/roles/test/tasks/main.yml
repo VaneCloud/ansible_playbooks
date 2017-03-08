@@ -1,0 +1,6 @@
+- expect:
+    command: passwd
+    responses:
+      Question:
+        'New password': "ansible"
+        'Retype new password': "ansible"

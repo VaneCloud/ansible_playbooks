@@ -1,0 +1,8 @@
+---
+# file: roles/aix_base_tuning/tasks/main.yaml
+# Usage: AIX parameters tuning processes
+# Author: Guan Ji / chenguanji at vanecloud.com
+# v1.0
+
+- include: system_params.yaml
+- include: cloud_init.yaml

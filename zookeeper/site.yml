@@ -1,0 +1,5 @@
+- name: Installing ZooKeeper
+  hosts: all
+  sudo: yes
+  roles:
+    - role: AnsibleShipyard.ansible-zookeeper

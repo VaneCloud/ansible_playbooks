@@ -1,0 +1,11 @@
+- name: Create temporary directory
+  file:
+    path: "{{ temp_dir }}"
+    state: directory
+
+- name: Copy IM installation files
+  become: false
+  synchronize:
+    src: .
+    dest: "{{ temp_dir }}"
+#    set_remote_user: yes

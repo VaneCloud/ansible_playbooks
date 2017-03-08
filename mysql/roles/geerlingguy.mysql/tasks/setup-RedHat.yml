@@ -1,0 +1,19 @@
+---
+- name: Install YUM Priority Plugins
+  yum: "name=yum-priorities  state=installed"
+
+- name: Add VaneCloud Internal USTC Repo
+  template: 
+    src: centos-ustc.repo 
+    dest: /etc/yum.repos.d/centos-ustc.repo
+    owner: root 
+    group: root 
+    mode: 0644
+
+- name: Ensure MySQL packages are installed.
+  yum: "name={{ item }} state=installed enablerepo={{ mysql_enablerepo }}"
+  with_items: "{{ mysql_packages }}"
+  register: rh_mysql_install_packages
+
+- name: Ensure MySQL Python libraries are installed.
+  yum: "name=MySQL-python state=installed enablerepo={{ mysql_enablerepo }}"

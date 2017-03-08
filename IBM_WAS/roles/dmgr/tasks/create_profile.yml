@@ -1,0 +1,10 @@
+- name: Create a default WAS profile
+  shell: '{{ install_dir }}/bin/manageprofiles.sh -create -templatePath {{ install_dir }}/profileTemplates/default -profileName {{ profile_name }} -profilePath {{ install_dir }}/profiles/{{ profile_name }}'
+
+- name: Get creation result
+  shell: 'cat {{ install_dir }}/profiles/{{ profile_name }}/logs/AboutThisProfile.txt'
+  register: was_out
+
+- name: Print out WAS profile creation output
+  debug: 
+    msg: "{{ was_out.stdout_lines }}"

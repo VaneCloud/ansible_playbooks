@@ -1,0 +1,3 @@
+- include: copy_im_files.yml
+- include: install_im.yml
+- include: remove_installation_files.yml

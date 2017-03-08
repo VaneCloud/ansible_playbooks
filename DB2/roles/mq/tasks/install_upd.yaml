@@ -1,0 +1,15 @@
+---
+# file: roles/mq/tasks/install_upd.yaml
+# Usage: AIX parameters tuning variables
+# Author: Guan Ji Chen at vaneCloud.com
+# v1.0
+
+- name: Install MQ update
+  shell: "install_all_updates -rcYd {{ tmp_dir }}"
+  tags:
+    - install_upd
+
+# - name: Check MQ installation
+  # shell: "{{ mq_inst_dir }}/bin/setmqinst -i -p {{ mq_inst_dir }}"
+  # tags:
+    # - install_upd

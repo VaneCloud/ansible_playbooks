@@ -1,0 +1,8 @@
+- hosts: all
+  roles:
+    - { role: geerlingguy.memcached }
+  vars:
+    - memcached_port: "{{ listen_port }}"
+    - memcached_listen_ip: "{{ listen_addr }}"
+    - memcached_memory_limit: "{{ memory_limit }}"
+    - memcached_connections: "{{ max_connect }}"

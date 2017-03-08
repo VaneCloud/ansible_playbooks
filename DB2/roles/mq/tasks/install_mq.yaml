@@ -1,0 +1,15 @@
+---
+# file: roles/mq/tasks/install_mq.yaml
+# Usage: AIX parameters tuning variables
+# Author: Guan Ji Chen at vaneCloud.com
+# v1.0
+
+- name: Install MQ packages
+  shell: "installp -acgXYd {{ tmp_dir }} all"
+  tags:
+    - install_mq
+
+- name: Check MQ installation
+  shell: "{{ mq_inst_dir }}/bin/setmqinst -i -p {{ mq_inst_dir }}"
+  tags:
+    - install_mq

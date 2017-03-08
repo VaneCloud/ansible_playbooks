@@ -1,0 +1,4 @@
+temp_dir: /tmp/vanesible/was/IM
+shared_dir: /opt/IBM/IMShared
+install_dir: /opt/IBM/WebSphere/AppServer
+profile_name: default

@@ -1,0 +1,56 @@
+---
+# file: roles/aix_base_tuning/tasks/system_params.yaml
+# Usage: AIX parameters tuning processes
+# Author: Guan Ji / chenguanji at vanecloud.com
+# v1.0
+
+- name: Change filesystem size
+  command: /usr/sbin/chfs -a size={{ item.size }} {{ item.name }}
+  with_items: "{{ fs_size }}"
+  ignore_errors: true
+
+- name: Change network params
+  command: "/usr/sbin/no -p -o {{ item.name }}={{ item.param }}"
+  with_items: "{{ no_params }}"
+
+- name: Change network params with restart
+  command: "/usr/sbin/no -r -o {{ item.name }}={{ item.param }}"
+  with_items: "{{ no_params_restart }}"
+
+- name: Change memory params
+  shell: "yes | /usr/sbin/vmo -p -o {{ item.name }}={{ item.param }}"
+  with_items: "{{ vmo_params }}"
+
+- name: Change IO params
+  command: "/usr/sbin/ioo -r -o {{ item.name }}={{ item.param }}"
+  with_items: "{{ ioo_params }}"
+
+- name: Change sys0 params
+  command: "/usr/sbin/chdev -l sys0 -a {{ item.name}}={{ item.param }}"
+  with_items: "{{ sys0_params }}"
+
+- name: Change time zon
+  command: chtz 'Asia/Shanghai'
+
+- name: Change system security limits
+  template:
+    src: limits.j2
+    dest: /etc/security/limits
+    owner: root
+    group: security
+    mode: 0640
+
+- name: Manual update NTP daetime
+  command: "/usr/sbin/ntpdate {{ ntp_server }}"
+
+- name: Update NTP config file
+  template:
+    src: ntp.conf.j2
+    dest: /etc/ntp.conf
+    owner: root
+    group: system
+    mode: 0664
+  notify: restart xntpd
+
+- name: Change NTP service to alway startup
+  command: /usr/sbin/chrctcp -S -a xntpd

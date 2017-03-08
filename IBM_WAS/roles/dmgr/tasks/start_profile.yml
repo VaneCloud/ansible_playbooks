@@ -1,0 +1,6 @@
+- name: Start profile
+  shell: '{{ install_dir }}/profiles/{{ profile_name }}/bin/startServer.sh server1'
+  register: create_result_check
+  until: create_result_check | changed
+  retries: 3
+  delay: 5

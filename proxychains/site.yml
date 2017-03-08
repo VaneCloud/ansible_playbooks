@@ -1,0 +1,26 @@
+- hosts: all
+  tasks:
+  - name: cp proxychains-ng install file 
+    copy: src=files/proxychains-ng dest=/tmp/ mode=755
+
+  - name: install make gcc
+    yum: name={{ item }} state=present disable_gpg_check=yes
+    with_items:
+        - gcc
+        - make
+    when:
+      - ansible_os_family == "RedHat" 
+  
+  - name: install make gcc
+    apt: name={{ item }} update_cache=yes state=present
+    with_items:
+        - gcc
+        - make
+    when:
+       - ansible_os_family == "Debian"
+  
+  - name: install proxychains
+    make: chdir=/tmp/proxychains-ng target=install
+
+  - name: generate configuretion file
+    template: src=files/proxychains.conf dest=/usr/local/etc/

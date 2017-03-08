@@ -1,0 +1,8 @@
+- hosts: all
+  become: yes
+  become_method: sudo
+  pre_tasks:
+    - authorized_key: user="{{ ansible_ssh_user }}" key="{{ lookup('file', '/home/ubuntu/.ssh/id_rsa.pub') }}" state=present
+  roles:
+    - db2_install
+

@@ -1,0 +1,26 @@
+---
+- name: Just a test1
+  debug:
+    msg: "{{ a }} {{ ansible_processor }}"
+
+- name: sleep1
+  shell: sleep 5
+
+- name: Just a test2
+  debug:
+    msg: "{{ b }} {{ ansible_processor }}"
+
+- name: sleep2
+  shell: sleep 5
+
+- name: Just a test3
+  debug:
+    msg: "{{ c }} {{ ansible_processor }}"
+
+- name: sleep3
+  shell: sleep 5
+
+- name: Just a test4
+  debug:
+    msg: "{{ ansible_processor }}"
+

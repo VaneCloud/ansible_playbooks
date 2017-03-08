@@ -1,0 +1,27 @@
+---
+# file: roles/aix_base_tuning/defaults/main.yaml
+# Usage: AIX parameters tuning variables
+# Author: Guan Ji / chenguanji at vanecloud.com
+# v1.0
+
+temp_path: /tmp/vanecloud
+package_url: http://96.0.46.133/db2/10.5/aix/
+package: v10.5fp7_aix64_universal_fixpack.tar.gz
+response_file: responsefile.rsp
+
+fs:
+  - {fs_size: 10G, fs_name: /tmp}
+  - {fs_size: 4G,  fs_name: /var}
+
+ins_name: db2inst1
+
+install_dir: /opt/ibm/db2/V10.5
+
+sysctl_params:
+  - {name: 'kernel.shmmni', param: 4096}
+  - {name: 'kernel.shmmax', param: 17179869184}
+  - {name: 'kernel.shmall', param: 8388608}
+  - {name: 'kernel.sem',    param: '250 1024000 32 4096'}
+  - {name: 'kernel.msgmni', param: 16384}
+  - {name: 'kernel.msgmax', param: 65536}
+  - {name: 'kernel.msgmnb', param: 65536}

@@ -1,0 +1,23 @@
+---
+# file: roles/mq/tasks/prepare.yaml
+# Usage: AIX parameters tuning variables
+# Author: Guan Ji Chen at vaneCloud.com
+# v1.0
+
+- name: Log /tmp filesystem size
+  shell: df -g|grep /tmp|awk '{print $2}'|awk -F. '{print $1}'
+  register: tmp_fs_size
+  tags:
+    - prepare
+
+- name: Resize /tmp to 10G
+  shell: chfs -a size=10G /tmp
+  tags:
+    - prepare
+
+- name: Create temporary directory
+  file:
+    dest: "{{ tmp_dir }}"
+    state: directory
+  tags:
+    - prepare

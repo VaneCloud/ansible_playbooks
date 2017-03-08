@@ -1,0 +1,32 @@
+---
+# file: roles/db2_install/tasks/system_prerequisites.yaml
+# Usage: check db2 installation system prerequisites
+# Author: Guan Ji / chenguanji at vanecloud.com
+# v1.0
+
+#- name: Change filesystem size
+#  command: "chfs -a size={{ item.fs_size }} {{ item.fs_name }}"
+#  with_items: "{{ fs }}"
+
+#- name: AIX name length support
+#  command: chdev -l sys0 -a max_logname=100
+
+- name: Create db2 filesystem
+  file:
+    state: directory
+    dest: "{{ item }}"
+  with_items:
+    - /db2home
+    - /archlog
+    - /db2data
+
+- name: Change system params
+  sysctl:
+    name: "{{ item.name }}"
+    value: "{{ item.param }}"
+    sysctl_set: yes
+    state: present
+    reload: yes
+  with_items: "{{ sysctl_params }}"
+
+ 

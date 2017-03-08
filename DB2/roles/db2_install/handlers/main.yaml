@@ -1,0 +1,10 @@
+---
+# file: roles/aix_base_tuning/handlers/main.yaml
+# Usage: handlers
+# Author: Guan Ji / chenguanji at vanecloud.com
+# v1.0
+
+- name: restart xntpd
+  service:
+    name: xntpd
+    state: restarted

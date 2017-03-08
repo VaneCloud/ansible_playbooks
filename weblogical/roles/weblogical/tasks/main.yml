@@ -1,0 +1,62 @@
+---
+#weblogic silent install and create a domain
+- name: mkdir temp directory
+  file:
+    path: "{{ tmp_dir }}"
+    state: directory
+- name: download java and weblogic
+  get_url: 
+    url: "{{ urls }}/{{ item.src }}"
+    dest: "{{ tmp_dir }}" 
+  with_items:
+    - { 'src': "{{ java_pkg }}" }
+    - { 'src': "{{ wls_pkg }}" }
+- name: java install
+  unarchive:
+    src: "{{ tmp_dir }}/{{ java_pkg }}"
+    dest: /usr/local/
+    copy: no
+- name: set java variables
+  lineinfile:
+    dest: "/etc/profile"
+    line: "{{ item.line }}"
+  with_items:
+    - { "line": "export MW_HOME={{ wls_install }}" }
+    - { "line": "export WLS_HOME=$MW_HOME/wlserver_10.3" }
+    - { "line": "export WL_HOME=$WLS_HOME" }
+    - { "line": "# Set to the appropriate JAVA_HOME." }
+    - { "line": "export JAVA_HOME=/usr/local/jdk1.7.0_79" }
+    - { "line": "export PATH=$JAVA_HOME/bin:$PATH" }
+- name: create group
+  group:
+    name: "{{ group }}"
+    
+- name: create weblogic install user
+  user:
+    name: "{{ user }}"
+    shell: /bin/bash
+    group: "{{ group }}"
+    home: "/home/{{ user }}"
+- name: mkdir weblogic install directory
+  file: 
+    path: "{{ wls_install }}"
+    state: directory
+    owner: "{{ user }}"
+    group: "{{ group }}"
+
+- name: silent file 
+  template: 
+    src: "{{ item.src }}"
+    dest: "{{ tmp_dir }}/{{ item.dest }}"
+  with_items:
+    - { "src": "domain.rsp.j2", "dest": "domain.rsp" }
+    - { "src": "silent.xml.j2", "dest": "silent.xml" }
+- name: weblogic install
+  shell: source /etc/profile && java -Xmx1024m -jar {{ tmp_dir }}/{{ wls_pkg }} -mode=silent -silent_xml={{ tmp_dir }}/silent.xml
+- name: weblogic create domain
+  shell: cd {{ wls_install }}/wlserver_10.3/common/bin && ./config.sh -mode=silent -silent_script={{ tmp_dir }}/domain.rsp
+#  ignore_errors: True  
+
+- name: weblogic start
+  shell: cd {{ wls_install }}/wlserver_10.3/user_projects/domains/base_domain/bin && nohup sh ./startWebLogic.sh &
+
